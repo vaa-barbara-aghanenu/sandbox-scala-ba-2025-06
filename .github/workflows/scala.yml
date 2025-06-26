@@ -1,0 +1,29 @@
+name: Scala CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 11
+
+      - name: Install sbt
+        uses: coursier/setup-action@v1
+        with:
+          apps: sbt
+
+      - name: Run scalafmtCheckAll
+        run: sbt scalafmtCheckAll
