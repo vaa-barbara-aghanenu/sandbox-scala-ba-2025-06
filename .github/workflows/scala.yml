@@ -1,0 +1,22 @@
+name: Scala CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+    - uses: coursier/cache-action@v6
+    - name: Run scalafmt check
+      run: sbt scalafmtCheckAll
+    - name: Run tests
+      run: sbt test
