@@ -49,6 +49,14 @@ Forward any pytest selector via `-PytestArgs`. A few common examples:
 
 Because the script always reuses the cached runtimes, you can run it multiple times back-to-back with different selectors and it will only spend time running pytest.
 
+When corporate policies block script execution, wrap the command in a one-liner that temporarily bypasses the policy:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\portable_pytest.ps1 -PytestArgs @('-vv')
+```
+
+Use this variant in terminals where `.\scripts\portable_pytest.ps1` would otherwise fail with an execution-policy error; it launches a child PowerShell process with the needed permissions and then exits.
+
 ## Repository layout
 
 | Path | Purpose |
