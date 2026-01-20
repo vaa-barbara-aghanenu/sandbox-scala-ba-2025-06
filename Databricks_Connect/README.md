@@ -29,11 +29,25 @@ All downloads are cached so subsequent runs are fast and offline-friendly. To sk
 .\scripts\portable_pytest.ps1 -BootstrapOnly
 ```
 
-To forward additional pytest options, use `-PytestArgs`:
+## Running different test selections
+
+Forward any pytest selector via `-PytestArgs`. A few common examples:
 
 ```powershell
+# Everything under tests/
+.\scripts\portable_pytest.ps1
+
+# Specific file, verbose output
 .\scripts\portable_pytest.ps1 -PytestArgs @("tests/test_session_smoke.py", "-vv")
+
+# Only tests whose names/markers match "spark_local" and not "slow"
+.\scripts\portable_pytest.ps1 -PytestArgs @("-k", "spark_local and not slow")
+
+# A single test function
+.\scripts\portable_pytest.ps1 -PytestArgs @("tests/pipelines/test_jobs.py::TestDailyJob::test_happy_path")
 ```
+
+Because the script always reuses the cached runtimes, you can run it multiple times back-to-back with different selectors and it will only spend time running pytest.
 
 ## Repository layout
 

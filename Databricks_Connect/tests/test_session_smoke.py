@@ -1,3 +1,5 @@
+"""Spark smoke tests used by the portable runtime workflow (see README)."""
+
 import pytest
 
 
