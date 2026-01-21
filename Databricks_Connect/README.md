@@ -57,6 +57,15 @@ powershell -ExecutionPolicy Bypass -File .\scripts\portable_pytest.ps1 -PytestAr
 
 Use this variant in terminals where `.\scripts\portable_pytest.ps1` would otherwise fail with an execution-policy error; it launches a child PowerShell process with the needed permissions and then exits.
 
+### Staying aligned with Databricks Runtime LTS
+
+This harness targets Databricks Runtime 14.3 LTS (Spark 3.5.1, Python 3.11, Java 17). When Databricks moves to a new LTS, consult the release matrix and update the matching pins:
+
+- `requirements-dev.txt` → bump `pyspark==<new spark>`
+- `scripts/portable_pytest.ps1` → adjust `$pythonVersion` and the Temurin JRE download (e.g., Java 21 if required)
+
+Run the portable pytest script after every bump to confirm the local toolchain still mirrors the cluster runtime.
+
 ## Repository layout
 
 | Path | Purpose |
